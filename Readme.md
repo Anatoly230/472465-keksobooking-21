@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Анатолий Китаев](https://up.htmlacademy.ru/javascript/21/user/472465).
-* Наставник: `Неизвестно`.
+* Наставник: [Артик Ман](https://htmlacademy.ru/profile/id1445657)
 
 ---
 
