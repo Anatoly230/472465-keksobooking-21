@@ -1,18 +1,18 @@
 'use strict';
 
-let orderOfNumbers = (array) => {
+const orderOfNumbers = (array) => {
   return array.sort(function (a, b) {
     return a - b;
   });
 };
 
 
-let getRandomInt = (max = 0, min = 0) => {
+const getRandomInt = (max = 0, min = 0) => {
   return (Math.floor(Math.random() * Math.floor(max - min) + min));
 };
 
 
-let minMaxNumber = (array) => {
+const minMaxNumber = (array) => {
 
   let inOrder = orderOfNumbers(array);
   let min = inOrder.length - inOrder.length;
@@ -22,40 +22,39 @@ let minMaxNumber = (array) => {
 };
 
 
-let selectFromArray = (array) => {
+const selectFromArray = (array) => {
   let max = array.length;
   let element = getRandomInt(max);
 
   return array[element];
 };
 
-let countOfAds = 8;
-let avatarImg = [1, 8];
-let titleText = `Lorem ipsum dolor sit amet`;
-let locationX = [700, 500];
-let locationY = [500, 300];
-let price = [100000, 5000];
-let type = [`palace`, `flat`, `house`, `bungalow`];
-let rooms = [5, 1];
-let guests = [10, 1];
-let checkin = [`12:00`, `13:00`, `14:00`];
-let checkout = [`12:00`, `13:00`, `14:00`];
-let features = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
-let desсriptipon = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
-let photos = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
-let blockSze = 300;
-let locX = blockSze;
-let locY = [130, 630];
+const countOfAds = 1;
+const avatarImg = [1, 8];
+const titleText = [`Природные парки, заповедники`, `Долина Гейзеров, Камчатка`, `Воробьевы горы`,`Патриаршие пруды`,`Чистые пруды`,`Парк «Коломенское»`,`Нескучный сад`];
+const address = ``;
+const price = [100000, 5000];
+const type = [`palace`, `flat`, `house`, `bungalow`];
+const rooms = [5, 1];
+const guests = [10, 1];
+const checkin = [`12:00`, `13:00`, `14:00`];
+const checkout = [`12:00`, `13:00`, `14:00`];
+const features = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
+const desсriptipon = [`«Остров Мечты» станет крайне привлекательной городской туристической достопримечательностью и встанет в один ряд с Кремлем, Парком Горького и ВДНХ`,`Усадьба Царицыно – единственное место в Москве, которое может похвастаться «Поющим световым фонтаном».`,`Музеон – место творческих людей. Здесь постоянно проводят выставки художников, музыкальные фестивали и видеоперфомансы. Сюда часто приходят за вдохновением и идеями.`];
+const photos = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
+const blockSze = 300;
+const locX = blockSze;
+const locY = [130, 630];
 
 
-let getAdsOject = () => {
+const getAdsOject = () => {
   return {
     author: {
       avatar: `img/avatars/user0` + minMaxNumber(avatarImg) + `.png`
     },
     offer: {
-      title: titleText,
-      address: minMaxNumber(locationX) + `,` + minMaxNumber(locationY),
+      title: selectFromArray(titleText),
+      address: getRandomInt(locX) + `,` + minMaxNumber(locY),
       price: minMaxNumber(price),
       type: selectFromArray(type),
       rooms: minMaxNumber(rooms),
@@ -63,7 +62,7 @@ let getAdsOject = () => {
       checkin: selectFromArray(checkin),
       checkout: selectFromArray(checkout),
       features: selectFromArray(features),
-      description: desсriptipon,
+      description: selectFromArray(desсriptipon),
       photos: selectFromArray(photos)
     },
     location: {
@@ -74,13 +73,18 @@ let getAdsOject = () => {
 };
 
 
-let getlistAds = (counAds) => {
+const getlistAds = (countAds) => {
   let arrayAds = [];
-  for (let i = 0; i < counAds; i++) {
-    arrayAds[i] = getAdsOject();
+  for (let i = 0; i < countAds; i++) {
+    arrayAds.push(getAdsOject());
   }
   return arrayAds;
 };
 
 
-getlistAds(countOfAds);
+const newAdsItem = getlistAds(countOfAds);
+
+
+
+
+
