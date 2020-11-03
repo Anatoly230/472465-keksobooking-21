@@ -1,5 +1,117 @@
 'use strict';
 
+const mapFilters = document.querySelector(`.map__filters`);
+const mapFilter = mapFilters.querySelectorAll(`select`);
+const mapFeatures = document.querySelector(`.map__features`);
+const featureInputs = mapFeatures.querySelectorAll(`input`);
+const adForm = document.querySelector(`.ad-form`);
+const adFormFieldSets = adForm.querySelectorAll(`fieldset`);
+const mapPinMain = document.querySelector(`.map__pin--main`);
+const imgPinWidth = document.querySelector(`img[alt="Метка объявления"]`).width;
+const imgPinHeight = document.querySelector(`img[alt="Метка объявления"]`).height;
+const inputAdress = document.querySelector(`input[name="address"]`);
+const adFormSubmit = document.querySelector(`.ad-form__submit`);
+const roomNumber = document.querySelector(`#room_number`);
+const guestCount = document.querySelector(`#capacity`);
+const name = document.querySelector(`#title`);
+const address = document.querySelector(`#address`);
+const priceForm = document.querySelector(`#price`);
+const typeForm = document.querySelector(`#type`);
+const timeIn = document.querySelector(`#timein`);
+const timeOut = document.querySelector(`#timeout`);
+
+
+
+const getClaenOfPx = (toClean) => {
+  let newValue = ``;
+  if (toClean.indexOf(`x`))
+
+    for (let i = 0; i < toClean.length - 2; i++) {
+      newValue += toClean[i];
+    }
+  return newValue;
+};
+
+
+inputAdress.value = `${imgPinWidth / 2 + parseInt(getClaenOfPx(mapPinMain.style.left))}, ${imgPinHeight / 2 + parseInt(getClaenOfPx(mapPinMain.style.top))}`;
+
+
+const disableFields = (fields) => {
+
+  fields.forEach(field => {
+    field.disabled = true;
+  });
+
+};
+
+const enableField = (fields) => {
+
+  fields.forEach(field => {
+    field.disabled = false;
+  });
+
+};
+
+
+disableFields(adFormFieldSets);
+disableFields(mapFilter);
+disableFields(featureInputs);
+
+
+const getActivationPage = () => {
+
+  enableField(adFormFieldSets);
+  enableField(mapFilter);
+  enableField(featureInputs);
+  document.querySelector(`.map`).classList.remove(`map--faded`);
+  adForm.classList.remove(`ad-form--disabled`);
+  inputAdress.value = `${imgPinWidth / 2 + parseInt(getClaenOfPx(mapPinMain.style.left))}, ${imgPinHeight + parseInt(getClaenOfPx(mapPinMain.style.top))}`;
+};
+
+mapPinMain.addEventListener(`mousedown`, (evt) => {
+
+  if (evt.which == 1) {
+    getActivationPage();
+  }
+
+});
+
+mapPinMain.addEventListener(`keydown`, (evt) => {
+
+  if (evt.key == `Enter`) {
+    getActivationPage();
+  }
+
+});
+
+adFormSubmit.addEventListener(`click`, evt => {
+
+  const rooms = parseInt(roomNumber.value, 10);
+  const guests = parseInt(guestCount.value, 10);
+  let message = ``;
+
+  guestCount.setCustomValidity(``);
+
+  const errorMessege = (error) => {
+    evt.preventDefault();
+    guestCount.setCustomValidity(error);
+    guestCount.reportValidity();
+  };
+
+  if (guests > rooms) {
+    message = `Слишком много гостей для количества комнат`;
+    errorMessege(message);
+  } else if (rooms === 100 && guests > 0) {
+    message = `100 комнат не для гостей, уберите гостей`;
+    errorMessege(message);
+  } else if (guests < 1 && rooms !== 100) {
+    message = `Необходим хотбяы один гость`;
+    errorMessege(message);
+  }
+
+});
+
+
 const orderOfNumbers = (array) => {
   return array.sort(function (a, b) {
     return a - b;
@@ -46,7 +158,7 @@ const locX = blockSze;
 const locY = [130, 630];
 
 
-const getAdsOject = () => {
+const getAdsObject = () => {
   return {
     author: {
       avatar: `img/avatars/user0` + minMaxNumber(avatarImg) + `.png`
@@ -75,7 +187,7 @@ const getAdsOject = () => {
 const getlistAds = (countAds) => {
   let arrayAds = [];
   for (let i = 0; i < countAds; i++) {
-    arrayAds.push(getAdsOject());
+    arrayAds.push(getAdsObject());
   }
   return arrayAds;
 };
@@ -83,8 +195,6 @@ const getlistAds = (countAds) => {
 
 const newAdsList = getlistAds(countOfAds);
 
-
-document.querySelector(`.map`).classList.remove(`map--faded`);
 
 const renderOfPins = (arrayAds) => {
   const mapPins = document.querySelector(`.map__pins`);
@@ -113,7 +223,7 @@ const renderOfPins = (arrayAds) => {
 
 };
 
-renderOfPins(newAdsList);
+// renderOfPins(newAdsList);
 
 
 const map = document.querySelector(`.map`);
@@ -235,4 +345,4 @@ const renderOfAds = (adsList) => {
   }
 };
 
-renderOfAds(newAdsList);
+// renderOfAds(newAdsList);
